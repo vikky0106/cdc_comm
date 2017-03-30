@@ -1,0 +1,30 @@
+<head>
+   <title>City Diagnosis Center</title>
+    <style>
+            div {
+                padding-left: 250px;
+            }
+</style>
+ </head>
+
+<body>
+    <h2 align='center'>City Dignosis Center</h2>
+    <table id="reports" class="table">
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody id="tbody">
+</tbody>
+</table>
+<h4 align='center'>************Thankyou***************</h4>
+    <script>
+        var reports = document.getElementById('reports');
+        const ipcRenderer = require("electron").ipcRenderer;
+ 
+        ipcRenderer.on("printPDF", (event, content) => {
+            reports.innerHTML = content;
+            ipcRenderer.send("readyToPrintPDF");
+        });
+    </script>
+</body>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>City</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/jquery-ui.css" rel="stylesheet">
+</head>
+<body>
+<div class="wraper">
+<header>
+<div class="col-md-4 pd-top13"><a href="home.html"><img src="img/logo.png" href="home.html" alt="logo" style="max-width:512px; max-height:512px"></a></div>
+<div class="col-md-8">
+<nav class="navbar navbar-default">
+<div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span></button></div>
+<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+<ul class="nav navbar-nav">
+<li><a href="index.html">Commission</a></li>
+<li><a href="resetCommission.html">Reset commission</a></li>
+</ul>
+</div>
+</nav>
+</div>
+</header>
+<div class="clearfix top_links">
+<h3 class="pull-left">Commissions</h3>
+<button type="button" class="site_btn pull-right" name="button" id='printData'>Print</button>
+</div>
+
+<div class='text-center'>
+  Docter Name: 
+  <input id="docter" name="docter" type="text" placeholder="docter name" class="form-control_for_comm">
+  Start Date: 
+  <input id="startDate" name="name" type="text" placeholder="startDate" class="form-control_for_comm">
+  End Date :
+  <input id="endDate" type="text" placeholder="endDate" class="form-control_for_comm">
+  <input id='submit' type="button" class="site_btn mar-rgt20" onclick="showAllDocter()" value="submit">
+  </div>
+  <br>
+   <div class="clearfix"></div>
+  <table id="reports" class="table">
+  <thead>
+  <tr>
+  <th align='left' >Docter name</th>
+  <th align='left' >Mri</th>
+  <th align='left' >Xray</th>
+  <th align='left' >City</th>
+  <th align='left' >Amount</th>
+  <th align='left' >Commission</th>
+  </tr>
+  </thead>
+   <tfoot>
+            <tr>
+                <th colspan="4" style="text-align:right">Total:</th>
+                <th align='left'></th>
+                  <th align='left'></th>
+            </tr>
+        </tfoot>
+  <tbody id="tbody">
+  </tbody>
+  </table>
+<!-- <div id='loader' class="loader"></div> --></div>
+</div>
+<footer class="text-center"></footer>
+</div>
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/moment-with-locales.js"></script>
+<script src="js/bootstrap-datetimepicker.js"></script>
+<script src="js/database.js"></script>
+<script src="js/index.js"></script>
+<script>if (window.module) module = window.module;</script>
+<script type="text/javascript">
+  $(function () {
+              $('#startDate').datetimepicker({
+                format: 'DD/MM/YYYY'
+              });
+                $('#endDate').datetimepicker({
+                  format: 'DD/MM/YYYY'
+                });
+ getDoctersNames(function(err, data, info){
+  if(err){
+    console.log(info);
+  }
+  else{
+    var docterNames = [];
+    data.forEach(function(eachData, index, arr){
+      docterNames.push(eachData.name);
+      if(index === docterNames.length -1){
+          $( "#docter" ).autocomplete({
+            source: docterNames
+          }); 
+      }
+    });
+  }
+});      
+          })
+    const ipcRenderer = require("electron").ipcRenderer;
+     // cannot send message to other windows directly https://github.com/electron/electron/issues/991
+     function sendCommandToWorker(content) {
+         ipcRenderer.send("printPDF", content);
+     }
+</script>
+
+</body>
+</html>
