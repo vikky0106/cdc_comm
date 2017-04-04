@@ -36,6 +36,9 @@ function showAllDocter(){
                   var cell3 = row.insertCell(3);
                   var cell4 = row.insertCell(4);
                   var cell5 = row.insertCell(5);
+                  var cell6 = row.insertCell(6);
+
+                  cell6.style.display = 'none';
 
                   cell0.innerHTML = eachData.name;
                   cell1.innerHTML = eachData.mri;
@@ -53,6 +56,7 @@ function showAllDocter(){
                      if(i === data.length){
                        
                        $("#reports").dataTable({
+                        "bDestroy": true,
                          "footerCallback": function ( row, data, start, end, display ) {
                               var api = this.api(), data;
                   
@@ -92,7 +96,7 @@ function showAllDocter(){
                               );
                            
                           }}
-                       );
+                       ).fnDestroy();
                      }
            }
              
