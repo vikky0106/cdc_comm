@@ -4,12 +4,22 @@
             div {
                 padding-left: 250px;
             }
+            /*#div1 {
+                 padding-left: 130px;
+            }
+            #h2 {
+                 padding-left: 350px;
+            }*/
 </style>
  </head>
 
 <body>
     <h2 align='center'>City Dignosis Center</h2>
-    <table id="reports" class="table">
+    <div style="clear: both; padding-left: 130px; ">
+        <h5 id="div1" style="display:inline-block; width: 45%;"></h5> 
+        <h5 id="h2" style="display:inline-block; width: 45%;"></h5>
+    </div>
+    <table id="reports" class="table" align="center">
 <thead>
 <tr>
 </tr>
@@ -20,10 +30,21 @@
 <h4 align='center'>************Thankyou***************</h4>
     <script>
         var reports = document.getElementById('reports');
+         var div1 = document.getElementById('div1');
+          var h2 = document.getElementById('h2');
         const ipcRenderer = require("electron").ipcRenderer;
  
         ipcRenderer.on("printPDF", (event, content) => {
-            reports.innerHTML = content;
+            reports.innerHTML = content.tableData;
+            if(content.docterName){
+              div1.innerHTML = 'Name :-'+content.docterName;
+            }
+            else{
+                div1.innerHTML = 'All Docters';
+            }
+             if(content.date){
+              h2.innerHTML = content.date;
+            }
             ipcRenderer.send("readyToPrintPDF");
         });
     </script>

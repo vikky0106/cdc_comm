@@ -85,7 +85,7 @@ function getCommission(callback){
           console.log('Error in connection database');
           return;
         }
-        connection.query('SELECT * from test',
+        connection.query('SELECT * from test where id = '+mysql.escape(1),
         function(err,rows){
             //connection.release();
             if(!err) {
@@ -119,7 +119,7 @@ function insertComission(data,callback){
           return;
         }
 
-        connection.query('UPDATE test SET value = ? WHERE name = ?',[data.value, data.name],function(err,rows){
+        connection.query('UPDATE test SET mri = ?,xray = ?, city=? WHERE id ='+mysql.escape(1),[data.mri, data.xray, data.city],function(err,rows){
             //connection.release();
             if(!err) {
                 console.log(rows);
